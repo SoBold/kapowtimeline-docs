@@ -1,0 +1,30 @@
+# User Model for Timeline
+
+Namespace: `SoBold\Timeline`
+
+## Class: User
+
+The User class represents a user in the timeline system, mainly focusing on handling user identification.
+
+### Properties
+
+- `public $id` - ID of the user.
+
+### Methods
+
+#### `__construct(int $id = 0)`
+
+Constructs the user model. If no ID is provided, it defaults to either the session's user ID (if set) or 0, indicating an empty model.
+
+- `@param int $id` - The ID of the user.
+- `@return array` - Returns an empty model if no ID is set or derived from the session.
+
+#### `initialize(array $obj = [], int $id = 0)`
+
+Initializes the class with the provided object and ID.
+
+- `@param array $obj` - The base object for initialization.
+- `@param int $id` - The ID of the user.
+- `@return object`
+
+This constructor and initializer are designed to set up a User object based on a given ID, with a fallback to a session-based ID if available.

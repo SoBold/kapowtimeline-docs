@@ -1,0 +1,393 @@
+## OpenAPI
+
+```yaml
+openapi: 3.0.0
+info:
+  title: History Timeline API
+  version: 1.0.0
+  description: API for managing historical timelines
+servers:
+  - url: /HistoryTimeline/v1
+tags:
+  - name: Periods
+    description: Endpoints related to periods in history
+  - name: Events
+    description: Endpoints for managing events
+  - name: Pins
+    description: Endpoints for pinning events and managing pins
+
+paths:
+  /periods:
+    get:
+      tags:
+        - Periods
+      summary: Get all periods
+      parameters:
+        - name: period_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: ID of a specific period to retrieve
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Period'
+
+  /date-slider:
+    get:
+      tags:
+        - Periods
+      summary: Get date slider based on periods
+      parameters:
+        - name: periods
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          description: Array of period IDs to include in the date slider
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  html:
+                    type: string
+                  data:
+                    type: object
+
+  /period:
+    get:
+      tags:
+        - Periods
+      summary: Get a single period
+      parameters:
+        - name: periods
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          description: Array of period IDs to retrieve
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Period'
+
+  /period/events:
+    get:
+      tags:
+        - Events
+      summary: Get events for a period
+      parameters:
+        - name: period_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the period to retrieve events for
+        - name: dates
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of dates to filter events
+        - name: date_from
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Start date for filtering events
+        - name: date_to
+          in: query
+          required: true
+          schema:
+            type: string
+          description: End date for filtering events
+        - name: date_interval
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Interval for filtering events
+        - name: periods
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          description: Array of period IDs to include in event retrieval
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+
+  /period/key-facts:
+    get:
+      tags:
+        - Periods
+      summary: Get key facts for a period
+      parameters:
+        - name: period_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the period to retrieve key facts for
+        - name: html
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Flag to return HTML formatted key facts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /period/event/tags:
+    get:
+      tags:
+        - Events
+      summary: Get tags for events in a period
+      parameters:
+        - name: periods
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          description: Array of period IDs to retrieve event tags for
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+
+  /event/cross-curricular:
+    get:
+      tags:
+        - Events
+      summary: Get cross curricular subjects for an event
+      parameters:
+        - name: eventId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the event to retrieve cross curricular subjects for
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  crosscurricular:
+                    type: array
+                    items:
+                      type: string
+
+  /event/lessons:
+    get:
+      tags:
+        - Events
+      summary: Get lessons for an event
+      parameters:
+        - name: eventId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the event to retrieve linked lessons for
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /event/pin:
+    post:
+      tags:
+        - Pins
+      summary: Pin an event for later
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: integer
+                  description: ID of the event to pin
+      responses:
+        '200':
+          description: Successful pinning
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  data:
+                    type: object
+    get:
+      tags:
+        - Pins
+      summary: Get a pinned event
+      parameters:
+        - name: eventId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the event to check if it is pinned
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  data:
+                    type: object
+    delete:
+      tags:
+        - Pins
+      summary: Delete a pinned event
+      parameters:
+        - name: eventId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the event to delete from pins
+      responses:
+        '200':
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  data:
+                    type: object
+
+  /event/pins:
+    get:
+      tags:
+        - Pins
+      summary: Fetch all pinned events
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  data:
+                    type: object
+
+  /pins:
+    get:
+      tags:
+        - Pins
+      summary: Output all pins
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  data:
+                    type: object
+
+components:
+  schemas:
+    Period:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        permalink:
+          type: string
+        image:
+          type: string
+        colour:
+          type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        permalink:
+          type: string
+        image:
+          type: string
+        content:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+```

@@ -1,0 +1,73 @@
+# Documentation for SoBold\Pin Class
+
+## Overview
+
+The `SoBold\Pin` class in PHP is designed to manage "pin for later" functionalities within a WordPress environment. It interacts with a custom database table to handle pins related to specific events and users.
+
+## Namespace
+
+```php
+namespace SoBold;
+```
+
+This class is part of the `SoBold` namespace.
+
+## Class Definition
+
+The `Pin` class contains methods for creating, retrieving, and deleting pins in a custom WordPress table.
+
+## Class Properties
+
+- **`$table`**: Holds the name of the custom database table (`wp_timeline_pins`) used for storing pins.
+
+## Static Methods
+
+### `getPin`
+
+#### Purpose
+Retrieves the ID of a pin based on a specific user and event.
+
+#### Parameters
+- `$userId`: The ID of the user.
+- `$eventId`: The ID of the event.
+
+#### Returns
+The ID of the pin if it exists, otherwise 0.
+
+### `getPins`
+
+#### Purpose
+Fetches all pins associated with a given user.
+
+#### Parameters
+- `$userId`: The ID of the user.
+
+#### Returns
+An array of pins if any exist, otherwise `null`.
+
+### `createPin`
+
+#### Purpose
+Creates a new pin linking a user to an event.
+
+#### Parameters
+- `$userId`: The ID of the user.
+- `$eventId`: The ID of the event.
+
+#### Returns
+The number of rows affected (1 if a pin is added, otherwise 0).
+
+### `deletePin`
+
+#### Purpose
+Deletes a pin based on its ID.
+
+#### Parameters
+- `$pinId`: The ID of the pin to be deleted.
+
+#### Returns
+The number of rows affected (1 if a pin is deleted, otherwise 0).
+
+## Usage
+
+This class facilitates the management of user-event relationships in a WordPress site, allowing users to "pin" events for later reference. It uses WordPress's global `$wpdb` object for database interactions.

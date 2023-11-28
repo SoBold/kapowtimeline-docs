@@ -1,0 +1,98 @@
+# Event Model for Timeline
+
+Namespace: `SoBold\Timeline`
+
+## Class: Event
+
+The Event class represents a timeline event and includes various properties and methods for interacting with event data.
+
+### Properties
+
+- `public $id` - ID of the event.
+- `public $title` - Title of the event.
+- `public $period` - Period ID associated with the event.
+- `public $date` - Date of the event.
+- `public $lessons` - Lessons associated with the event.
+- `public $colour` - Colour code (HEX) associated with the event.
+- `public $content` - Content/description of the event.
+- `public $permalink` - Permalink of the event.
+- `public $tags` - Tags associated with the event.
+- `public $image` - Image URL of the event.
+- `public $audio` - Array of audio files associated with the event.
+
+### Methods
+
+#### `__construct(int $id = 0)`
+
+Constructs the event model. If no ID is provided, it returns an empty model.
+
+- `@param int $id` - The ID of the event.
+- `@return array` - Returns an empty model if no ID is set.
+
+#### `initialize(array $obj = [], int $id = 0)`
+
+Initializes the class with the provided object and ID.
+
+- `@param array $obj` - The base object for initialization.
+- `@param int $id` - The ID of the event.
+- `@return object`
+
+#### `getTitle() : string`
+
+Gets the title of the event.
+
+- `@return string` - Event title.
+
+#### `getImage() : string`
+
+Gets the image URL of the event.
+
+- `@return string` - Event's image URL.
+
+#### `getPeriod() : int`
+
+Gets the period ID of the event.
+
+- `@return int` - Period ID.
+
+#### `getLink() : string`
+
+Gets the permalink of the event.
+
+- `@return string` - Event permalink.
+
+#### `getColour() : string`
+
+Gets the HEX colour code of the event.
+
+- `@return string` - HEX colour code.
+
+#### `getDate() : int`
+
+Gets the date of the event.
+
+- `@return int` - Event date.
+
+#### `getLessons() : array`
+
+Gets the lessons associated with the event.
+
+- `@return array` - Array of lessons.
+
+#### `getContent() : string`
+
+Gets the content of the event.
+
+- `@return string` - Event content.
+
+#### `getTags() : array`
+
+Gets the tags associated with the event.
+
+- `@return array` - Array of tags.
+
+#### `getAudio() : array`
+
+Gets the audio files associated with the event.
+
+- `@return array` - Array of audio files.

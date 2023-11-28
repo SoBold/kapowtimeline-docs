@@ -1,0 +1,51 @@
+# Documentation for SoBold\ACF Class Modifications
+
+## Overview
+
+The `SoBold\ACF` class enhances the Advanced Custom Fields (ACF) functionality within a WordPress environment, developed by WP Engine. It specifically adds dynamic content to ACF fields in the backend by fetching data from external sources and integrating it into the WordPress admin interface.
+
+## Namespace
+
+```plaintext
+namespace SoBold;
+```
+
+This class is part of the `SoBold` namespace.
+
+## Class Definition
+
+The `ACF` class encapsulates custom functionality for modifying ACF fields.
+
+## Constructor
+
+The constructor initializes the class by attaching custom functions to specific ACF field load actions.
+
+### Actions Registered in Constructor
+
+1. `kapow_select_lessons` field
+2. `linked_lesson` field
+3. `timeline_colour` field
+
+## Function Definitions
+
+### `appendKapowLessons`
+
+#### Purpose
+`appendKapowLessons` dynamically populates the choices in ACF dropdown fields with lesson data fetched from an external API.
+
+#### Process
+- Fetches lessons from a remote API (`https://kapowprimary.com/wp-json/HistoryTimeline/v1/lessons`).
+- Appends these lessons to the ACF field's choices.
+
+### `addTimelineColours`
+
+#### Purpose
+`addTimelineColours` populates ACF dropdown fields with color options defined in a local configuration file.
+
+#### Process
+- Reads color definitions from `colours.json` located at `CHILD_BASE_PATH` directory.
+- Adds these colors as choices to the ACF field.
+
+## Integration
+
+These customizations allow for enhanced interactivity and dynamic content within ACF fields, facilitating the selection of lessons and theme colors directly from the WordPress backend, thus streamlining the content management process.

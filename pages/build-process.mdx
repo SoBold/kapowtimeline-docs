@@ -1,0 +1,178 @@
+This documentation outlines the build process for our WordPress theme, focusing on the usage of Husky, Prettier, ESLint, and Commitlint. It provides a detailed guide on how the theme is structured and how to maintain code quality and consistency.
+
+## Table of Contents
+- [1. Introduction](#1-introduction)
+- [2. Packages Used](#2-packages-used)
+  - [2.1 Husky](#21-husky)
+  - [2.2 Prettier](#22-prettier)
+  - [2.3 ESLint](#23-eslint)
+  - [2.4 Commitlint](#24-commitlint)
+- [3. Theme Structure](#3-theme-structure)
+  - [3.1 Blocks](#31-blocks)
+  - [3.2 Layouts](#32-layouts)
+- [4. Examples](#4-examples)
+- [5. Additional Information](#5-additional-information)
+
+## 1. Introduction
+This guide serves as a comprehensive reference for developers working on the WordPress theme, ensuring adherence to best practices in code quality and consistency.
+
+## 2. Packages Used
+### 2.1 Husky
+Husky is used to manage Git hooks. It ensures that commit messages follow the conventional commits format.
+
+#### Husky Configuration
+*Insert Husky configuration details here.*
+
+### 2.2 Prettier
+Prettier is an opinionated code formatter. It enforces a consistent style by parsing the code and re-printing it with its own rules.
+
+#### `.prettierrc.json`
+```json
+{
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true
+}
+```
+
+### 2.3 ESLint
+ESLint is a static code analysis tool for identifying problematic patterns in JavaScript code.
+
+#### `.eslintrc`
+```json
+{
+    "extends": "airbnb-base",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jquery": true
+    },
+    "globals": {
+        "lightVars": "readonly"
+    },
+    "ignorePatterns": ["webpack.config.js", ".env.js.sample", ".env.js"],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2017
+    },
+    "rules": {
+        "arrow-body-style": [2, "as-needed"],
+        "arrow-parens": [2, "as-needed"],
+        "comma-dangle": [
+            "error",
+            {
+                "functions": "never",
+                "arrays": "only-multiline",
+                "objects": "only-multiline"
+            }
+        ],
+        "indent": [
+            2,
+            4,
+            {
+                "SwitchCase": 1,
+                "VariableDeclarator": 1,
+                "outerIIFEBody": 1,
+                "FunctionDeclaration": {
+                    "parameters": 1,
+                    "body": 1
+                },
+                "FunctionExpression": {
+                    "parameters": 1,
+                    "body": 1
+                },
+                "CallExpression": {
+                    "arguments": 1
+                },
+                "ArrayExpression": 1,
+                "ObjectExpression": 1,
+                "ImportDeclaration": 1,
+                "flatTernaryExpressions": false,
+                "ignoreComments": false
+            }
+        ],
+        "max-len": [
+            1,
+            {
+                "code": 100,
+                "tabWidth": 4,
+                "comments": 120,
+                "ignoreUrls": true,
+                "ignoreComments": false,
+                "ignoreRegExpLiterals": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true
+            }
+        ],
+        "no-param-reassign": [
+            2,
+            {
+                "props": false
+            }
+        ],
+        "no-plusplus": 0,
+        "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
+        "no-use-before-define": 0,
+        "object-curly-newline": [
+            2,
+            {
+                "ImportDeclaration": "never"
+            }
+        ],
+        "quote-props": [
+            2,
+            "consistent-as-needed",
+            {
+                "keywords": false,
+                "unnecessary": true,
+                "numbers": false
+            }
+        ],
+        "semi": 2,
+        "import/no-extraneous-dependencies": 0
+    }
+}
+```
+
+### 2.4 Commitlint
+Commitlint checks if your commit messages meet the conventional commit format.
+
+#### Commitlint Rules
+- `build`: Changes that affect the build system or external dependencies.
+- `ci`: Changes to our CI configuration files and scripts.
+- `docs`: Documentation only changes.
+- `feat`: A new feature.
+- `fix`: A bug fix.
+- `perf`: A code change that improves performance.
+
+## 3. Theme Structure
+### 3.1 Blocks
+Blocks are the fundamental building blocks of the theme. Each block resides in `/components/blocks/{blockname}/`.
+
+#### Block Structure
+- JavaScript file: Export a default function.
+- SCSS file: For styling.
+- PHP file: For backend logic.
+
+Blocks should be registered in `_blocks.js`.
+
+### 3.2 Layouts
+Layout components like headers and footers are located in `/components/layouts/`.
+
+## 4. Branch Management and Deployment
+Our workflow involves two primary branches: `main` and `develop`.
+
+### 4.1 Branches
+- **`main`**: This branch is linked to production. All changes pushed to `main` are deployed to the production environment.
+- **`develop`**: This branch is for development. It's linked to our development environment. Changes pushed here are deployed to a staging or testing site.
+
+### 4.2 Deployment Process
+Both branches are integrated with DeployHQ for automated deployments:
+- **Production Deployment**: Changes pushed to the `main` branch automatically trigger a deployment to the production environment.
+- **Development Deployment**: Changes pushed to the `develop` branch automatically trigger a deployment to the development environment.
+
+### 4.3 Workflow Recommendations
+- Always push changes to the `develop` branch first.
+- After thorough testing and review in the development environment, create a pull request (PR) to merge changes into the `main` branch.
+- This approach ensures that the `main` branch remains stable and that all new changes are properly tested before reaching production.

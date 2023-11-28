@@ -1,0 +1,15 @@
+## Concepts & Rationale
+
+Being as bespoke as the timeline is, there are a few concepts that are needed to get to grips with before developing or making changes. I have tried to clarify as best as I can below.
+
+### Views
+
+Views is a post type and are the first to be seen on the frontend. A view relates to a collection of periods which one will see on the front page of the timeline. When a new view is created is added to the bottom of the exisiting views on the homepage. A view can also be hidden by toggiling it in the backend. Views can also be arranged.
+
+### Periods
+
+Periods is a post type and are a collection of Events (Post Type). Periods get added to a view which then get displayed on the timeline. Dates are defined to a period, and can range from BC (negative numbers) to AD (positive numbers). 
+
+### Events
+
+Events is a post type and are the lowest in the chain and the last relational post type. They do not house any other post types. But they accept a date number which then gets displayed on the suib timeline inside of a period.

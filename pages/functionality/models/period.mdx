@@ -1,0 +1,103 @@
+# Period Model for Timeline
+
+Namespace: `SoBold\Timeline`
+
+## Class: Period
+
+The Period class represents a specific timeline period and includes various properties and methods for interacting with period data.
+
+### Properties
+
+- `public $id` - ID of the period.
+- `public $view` - View ID associated with the period.
+- `public $title` - Title of the period.
+- `public $date_from` - Starting date of the period.
+- `public $date_to` - Ending date of the period.
+- `public $permalink` - Permalink of the period.
+- `public $image` - Image URL of the period.
+- `public $colour` - Colour code (HEX) associated with the period.
+- `public $date_intervals` - Date intervals of the period.
+- `public $audio` - Array of audio files associated with the period.
+
+### Methods
+
+#### `__construct(int $id = 0)`
+
+Constructs the period model. If no ID is provided, it returns an empty model.
+
+- `@param int $id` - The ID of the period.
+- `@return array` - Returns an empty model if no ID is set.
+
+#### `initialize(array $obj = [], int $id = 0)`
+
+Initializes the class with the provided object and ID.
+
+- `@param array $obj` - The base object for initialization.
+- `@param int $id` - The ID of the period.
+- `@return object`
+
+#### `getTitle() : string`
+
+Gets the title of the period.
+
+- `@return string` - Period title.
+
+#### `getLink() : string`
+
+Gets the permalink of the period.
+
+- `@return string` - Period permalink.
+
+#### `getImage() : string`
+
+Gets the image URL of the period.
+
+- `@return string` - Period's image URL.
+
+#### `getDateFrom() : int`
+
+Gets the starting date of the period.
+
+- `@return int` - Starting date.
+
+#### `getDateTo() : int`
+
+Gets the ending date of the period.
+
+- `@return int` - Ending date.
+
+#### `getDateIntervals() : int`
+
+Gets the date intervals of the period.
+
+- `@return int` - Date intervals.
+
+#### `getView() : int`
+
+Gets the view ID of the period.
+
+- `@return int` - View ID.
+
+#### `getColour() : string`
+
+Gets the HEX colour code of the period.
+
+- `@return string` - HEX colour code.
+
+#### `getEvents() : array`
+
+Gets the events associated with the period.
+
+- `@return array` - Array of events.
+
+#### `getKeyStages() : array`
+
+Gets the key stages associated with the period.
+
+- `@return array` - Array of key stages.
+
+#### `getAudio() : array`
+
+Gets the audio files associated with the period.
+
+- `@return array` - Array of audio files.

@@ -1,0 +1,11 @@
+## Authentication
+
+The timeline uses a custom authentication method to allow users to access it from the main site.
+
+The main site has an action called `launch-history-timeline` which you can append as a query parameter to a logged in user. This will trigger the SSO sequence and then produce a JWT and then redirect to the timeline with that JWT appended to the query params. 
+
+There is then a custom class handler inside the child theme to authenticate this request. The class is called `SSO`. It has an action on the 'wp' event and checks for authentication.
+
+The first condition it checks for is if the user has already been authenticated in the current session. It also checks to make sure the JWT hasn't expired. It has a comparitor on it also to check if the user is an administrator. If this is valid, it will then allow a user to continue, otherwise it will then check to see if the query parameter `token` is set. If not, it will apply a blocked session and urge the user to go and login via the main site. Otherwise, it will go and check if all the required parameters are set that are part of the JWT and then authenticate that with a secret and also sending a request to the main site to authenticate the request.
+
+If the decoded JWT is valid and the user has access to History in their subjects or on a free trial then they are able to continue, otherwise they are told to go to the main site and upgrade their account to be able to access the timeline.
